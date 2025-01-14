@@ -11,6 +11,7 @@ function getSensorsKeys(data = {}) {
 }
 
 // --------------------------------------------------------
+// @ts-ignore
 export default function DataSelector({ data = {}, setSelectedKey = (_item) => {} }) {
   const sensorsKeys = useMemo(() => getSensorsKeys(data), [data]);
 
@@ -25,7 +26,12 @@ export default function DataSelector({ data = {}, setSelectedKey = (_item) => {}
         >
           <div className="text-gray-400 self-end text-xs mx-2">°C</div>
           <div className="flex flex-col items-center mx-5">
-            <div className="text-xl">{data[item].slice(-1)}</div>
+            <div className="text-xl">
+              {
+                // @ts-ignore
+                data[item].slice(-1)
+              }
+            </div>
             <div className="text-gray-400">{item}</div>
           </div>
         </div>

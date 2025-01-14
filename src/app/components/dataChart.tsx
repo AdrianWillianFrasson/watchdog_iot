@@ -6,6 +6,7 @@ import type { EChartsOption } from "echarts";
 
 // --------------------------------------------------------
 function getSensorsData(data = {}, selectedKey = "") {
+  // @ts-ignore
   return data[selectedKey];
 }
 
@@ -33,6 +34,7 @@ export default function DataChart({ data = {}, selectedKey = "" }) {
       },
     ],
     xAxis: {
+      // @ts-ignore
       data: data["timestamp"],
       type: "category",
     },

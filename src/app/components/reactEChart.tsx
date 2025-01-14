@@ -14,7 +14,7 @@ export default function ReactECharts({
   settings,
   loading,
   theme,
-}: ReactEChartsProps): JSX.Element {
+}: ReactEChartsProps): React.JSX.Element {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,15 +39,18 @@ export default function ReactECharts({
   useEffect(() => {
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current);
-      chart.setOption(option, settings);
+      if (chart) {
+        chart.setOption(option, settings);
+      }
     }
-  }, [option, settings, theme]); // Whenever theme changes we need to add option and setting due to it being deleted in cleanup function
+  }, [option, settings, theme]);
 
   useEffect(() => {
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      loading === true ? chart.showLoading() : chart.hideLoading();
+      if (chart) {
+        loading === true ? chart.showLoading() : chart.hideLoading();
+      }
     }
   }, [loading, theme]);
 

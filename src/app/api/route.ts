@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
 
 // ----------------------------------------------------------------------------
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const response = await fetch(`${process.env.GOOGLE_SCRIPT_URL}?data=true`, { method: "GET" });
 
