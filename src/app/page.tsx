@@ -9,7 +9,7 @@ async function apiGET() {
   const response = await fetch("/api", { method: "GET" });
 
   if (response.ok) {
-    return response.json().catch((_) => {});
+    return response.json().catch((_) => ({}));
   }
 }
 
