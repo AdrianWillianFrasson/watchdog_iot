@@ -11,6 +11,8 @@ async function apiGET() {
   if (response.ok) {
     return response.json().catch((_) => ({}));
   }
+
+  return {};
 }
 
 // --------------------------------------------------------
