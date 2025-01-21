@@ -9,7 +9,7 @@ async function apiGET() {
   const response = await fetch("/api", { method: "GET" });
 
   if (response.ok) {
-    return response.json();
+    return response.json().catch((_) => {});
   }
 }
 
@@ -19,11 +19,22 @@ export default function Home() {
   const [selectedKey, setSelectedKey] = useState("");
 
   // ------------------------------------------------------
+  function updateData(newData = {}) {
+    setData(newData);
+
+    if (!selectedKey && Object.keys(newData)) {
+      const keys = Object.keys(newData).filter((item) => item !== "timestamp");
+      keys.sort();
+
+      setSelectedKey(keys?.at(0) ?? "");
+    }
+  }
+
   useEffect(() => {
-    apiGET().then((value) => setData(value));
+    apiGET().then((value) => updateData(value));
 
     const interval = setInterval(() => {
-      apiGET().then((value) => setData(value));
+      apiGET().then((value) => updateData(value));
     }, 10000);
 
     return () => clearInterval(interval);
@@ -31,9 +42,15 @@ export default function Home() {
 
   // ------------------------------------------------------
   return (
-    <div className="flex flex-grow p-5 space-x-5">
+    <div className="flex flex-col h-full w-full space-y-3">
       <DataSelector data={data} setSelectedKey={setSelectedKey} />
-      <DataChart data={data} selectedKey={selectedKey} />
+      <DataChart
+        // @ts-ignore
+        x={data?.["timestamp"] ?? []}
+        // @ts-ignore
+        y={data?.[selectedKey] ?? []}
+        title={`Histórico de Temperatura - ${selectedKey}`}
+      />
     </div>
   );
 }

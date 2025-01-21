@@ -1,22 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
 import ReactECharts from "./reactEChart";
 import type { EChartsOption } from "echarts";
 
 // --------------------------------------------------------
-function getSensorsData(data = {}, selectedKey = "") {
-  // @ts-ignore
-  return data[selectedKey];
-}
-
-// --------------------------------------------------------
-export default function DataChart({ data = {}, selectedKey = "" }) {
-  const sensorsData = useMemo(() => getSensorsData(data, selectedKey), [data, selectedKey]);
-
+export default function DataChart({ x = [], y = [], title = "" }) {
   const options: EChartsOption = {
     title: {
-      text: `Histórico de Temperatura - ${selectedKey}`,
+      text: title,
       left: "center",
     },
     tooltip: {
@@ -35,7 +26,7 @@ export default function DataChart({ data = {}, selectedKey = "" }) {
     ],
     xAxis: {
       // @ts-ignore
-      data: data["timestamp"],
+      data: x,
       type: "category",
     },
     yAxis: {
@@ -43,7 +34,7 @@ export default function DataChart({ data = {}, selectedKey = "" }) {
     },
     series: [
       {
-        data: sensorsData,
+        data: y,
         type: "line",
         smooth: true,
       },
@@ -52,10 +43,8 @@ export default function DataChart({ data = {}, selectedKey = "" }) {
 
   // ------------------------------------------------------
   return (
-    <div className="flex flex-grow">
-      <div className="flex flex-grow">
-        <ReactECharts option={options} />
-      </div>
+    <div className="flex flex-col h-full w-full min-h-96">
+      <ReactECharts option={options} />
     </div>
   );
 }

@@ -11,28 +11,27 @@ function getSensorsKeys(data = {}) {
 }
 
 // --------------------------------------------------------
-// @ts-ignore
-export default function DataSelector({ data = {}, setSelectedKey = (_item) => {} }) {
+export default function DataSelector({ data = {}, setSelectedKey = (_: string) => {} }) {
   const sensorsKeys = useMemo(() => getSensorsKeys(data), [data]);
 
   // ------------------------------------------------------
   return (
-    <div className="flex flex-col space-y-5 overflow-y-auto">
+    <div className="flex min-h-fit w-full justify-evenly space-x-3 overflow-x-auto">
       {sensorsKeys.map((item, key) => (
         <div
           key={key}
           onClick={() => setSelectedKey(item)}
-          className="flex flex-col bg-gray-800 hover:bg-gray-700"
+          className="flex flex-col bg-main1 hover:bg-gray-700 border-b-1 border-gray-500"
         >
-          <div className="text-gray-400 self-end text-xs mx-2">°C</div>
+          <div className="text-gray-300 self-end text-xs mx-2">°C</div>
           <div className="flex flex-col items-center mx-5">
             <div className="text-xl">
               {
                 // @ts-ignore
-                data[item].slice(-1)
+                data[item]?.at(-1) ? data[item]?.at(-1) : "-"
               }
             </div>
-            <div className="text-gray-400">{item}</div>
+            <div className="text-gray-300">{item}</div>
           </div>
         </div>
       ))}

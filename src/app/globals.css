@@ -4,9 +4,8 @@
 
 html,
 body {
-  @apply min-h-screen max-h-screen w-screen min-w-min;
-  @apply flex flex-grow;
-  @apply bg-gray-900;
+  @apply flex flex-col h-full w-full overflow-auto;
+  @apply bg-main2;
   @apply text-white;
   @apply antialiased;
   @apply font-mono;
