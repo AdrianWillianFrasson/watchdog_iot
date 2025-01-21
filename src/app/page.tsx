@@ -20,13 +20,19 @@ export default function Home() {
 
   // ------------------------------------------------------
   function updateData(newData = {}) {
+    const keys = Object.keys(newData);
+
+    if (!keys) {
+      return;
+    }
+
     setData(newData);
 
-    if (!selectedKey && Object.keys(newData)) {
-      const keys = Object.keys(newData).filter((item) => item !== "timestamp");
-      keys.sort();
+    if (!selectedKey) {
+      const dataKeys = keys.filter((key) => key !== "timestamp");
+      dataKeys.sort();
 
-      setSelectedKey(keys?.at(0) ?? "");
+      setSelectedKey(dataKeys?.at(0) ?? "");
     }
   }
 

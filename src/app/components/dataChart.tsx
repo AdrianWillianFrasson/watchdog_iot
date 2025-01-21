@@ -43,7 +43,7 @@ export default function DataChart({ x = [], y = [], title = "" }) {
 
   // ------------------------------------------------------
   return (
-    <div className="flex flex-col h-full w-full min-h-96">
+    <div className="flex flex-col h-full w-full">
       <ReactECharts option={options} />
     </div>
   );
